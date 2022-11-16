@@ -14,8 +14,7 @@ import javax.validation.Valid;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployesDto {
-
-    private long idEmployes;
+    private Long idEmployes;
     private String firstName;
     private String lastName;
     private String adress;

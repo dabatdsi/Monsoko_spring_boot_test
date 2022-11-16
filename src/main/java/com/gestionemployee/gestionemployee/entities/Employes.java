@@ -1,5 +1,6 @@
 package com.gestionemployee.gestionemployee.entities;
 
+//import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ import java.util.List;
 public class Employes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idEmployes;
+    private Long idEmployes;
     @Column(nullable = false)
     private String firstName;
     @Column(nullable = false)
@@ -34,11 +35,11 @@ public class Employes {
     private int phoneNumber;
     @Column(nullable = false)
     private String postOccupe;
-
-    /*@OneToMany(mappedBy = "employes",fetch=FetchType.EAGER)
+    /*@JsonBackReference
+    @OneToMany(mappedBy = "employes",fetch=FetchType.EAGER)
     //@JoinColumn(name = "idEmployes")
-    private List<Transaction> transaction ;*/
-
+    private List<Transaction> transaction ;
+*/
 
 
 }

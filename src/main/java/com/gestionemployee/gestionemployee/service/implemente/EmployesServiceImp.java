@@ -39,7 +39,7 @@ public class EmployesServiceImp<optional> implements EmployesService {
     @Override
     public EmployesDto findById(Long idEmployes) {
         if (idEmployes == null) {
-            log.error("Employes n'a pas  d'identifian");
+            log.error("Employes n'a pas  d'identifiant");
             return null;
         }
         return employesRepository.findById(idEmployes)

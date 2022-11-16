@@ -15,7 +15,7 @@ public class EmployesValidator  {
         // convertir user tel qu'il est
 
          if (!StringUtils.hasLength(employesDto.getFirstName())) {
-            errors.add("veillez energiser le nom de l'utilisateur");
+            errors.add("veillez renseigner le nom de l'utilisateur");
         }
             if (!StringUtils.hasLength(employesDto.getLastName())) {
                 errors.add("veillez renseigner le prenom de l'utilisateur");

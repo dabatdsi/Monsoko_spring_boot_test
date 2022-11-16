@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-
 public interface EmployesRepository extends JpaRepository<Employes,Long> {
 
 }
