@@ -10,6 +10,7 @@ import java.util.List;
 //import static org.hibernate.id.enhanced.StandardOptimizerDescriptor.log;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/users")
 public class UsersController {
     @Autowired
@@ -49,7 +50,7 @@ public class UsersController {
 
 
     @PostMapping(path= "/register")
-
+    //@CrossOrigin( origins = "http://localhost:4200/")
     public UsersDto registerUsers(@RequestBody UsersDto usersDto) throws Exception {
         String tempEmail = usersDto.getEmail();
         Object tempEmai = null;
@@ -82,6 +83,10 @@ public class UsersController {
         }
 
         return usersObj;
+    }
+   @GetMapping(value = "/home")
+    public   String showUser(){
+        return "application work";
     }
 
 
