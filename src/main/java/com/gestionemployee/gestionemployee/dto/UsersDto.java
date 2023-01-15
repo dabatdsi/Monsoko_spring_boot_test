@@ -1,16 +1,20 @@
 package com.gestionemployee.gestionemployee.dto;
-
 import com.gestionemployee.gestionemployee.entities.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.Set;
 
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsersDto {
+
 
     private Long  idUser;
     private String firstName;
@@ -20,11 +24,6 @@ public class UsersDto {
     private String email;
     private String username;
     private String password;
-
-
-    // private List<UsersDto> users;
-
-    // mapping de l'entite vers le DTO
     public static UsersDto fromEntity(Users users) {
         if (users == null) {
             // TODO throw on exception
@@ -47,6 +46,7 @@ public class UsersDto {
            // TODO throw on exception
            return  null;
        }
+
        Users users = new Users ();
 
        users.setIdUser(usersDto.getIdUser());
@@ -61,4 +61,7 @@ public class UsersDto {
 
        return users;
    }
+
+
+
 }

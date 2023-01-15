@@ -1,17 +1,15 @@
 package com.gestionemployee.gestionemployee.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gestionemployee.gestionemployee.entities.StatusTrans;
+import com.gestionemployee.gestionemployee.entities.Employes;
+import com.gestionemployee.gestionemployee.entities.PayBy;
 import com.gestionemployee.gestionemployee.entities.Transaction;
-import com.gestionemployee.gestionemployee.service.implemente.TransactionServiceImp;
+import com.gestionemployee.gestionemployee.entities.TypeTrans;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.List;
 
 @Builder
 @Data
@@ -21,10 +19,13 @@ public class TransactionDto {
 
     private long idTrans;
     private ZonedDateTime datePayment;
-    private StatusTrans status;
+    private PayBy statusPay;
+    private TypeTrans statusType;
     private String description;
-    private Long  userId;
-    private Long employeId;
+    private int montant;
+    //private Long  userId;
+    //private Employes employes;
+    private long idEmployes;
 
 
     public static TransactionDto fromEntity(Transaction transaction) {
@@ -36,8 +37,10 @@ public class TransactionDto {
         return TransactionDto.builder()
                 .idTrans(transaction.getIdTrans())
                 .datePayment((transaction.getDatePayment()))
-                .status(transaction.getStatus())
+                .statusPay(transaction.getStatusPay())
+                .statusType(transaction.getStatusType())
                 .description(transaction.getDescription())
+                .montant(transaction.getMontant())
                 .build();
 
     }
@@ -51,8 +54,10 @@ public class TransactionDto {
         Transaction transaction = new Transaction();
         transaction.setIdTrans(transactionDto.getIdTrans());
         transaction.setDatePayment(transactionDto.getDatePayment());
-        transaction.setStatus(transactionDto.getStatus());
+        transaction.setStatusPay(transactionDto.getStatusPay());
+        transaction.setStatusType(transactionDto.getStatusType());
         transaction.setDescription(transactionDto.getDescription());
+        transaction.setMontant(transactionDto.getMontant());
 
         return transaction;
     }

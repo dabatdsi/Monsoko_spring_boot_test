@@ -23,14 +23,17 @@ public class Transaction  {
     private long idTrans;
     private ZonedDateTime datePayment;
     @Enumerated(EnumType.STRING)
-     private StatusTrans status;
+     private PayBy statusPay;
+    @Enumerated(EnumType.STRING)
+     private TypeTrans statusType;
      private String description;
+     private  int montant;
     @ManyToOne
     @JoinColumn(name="idEmployes",nullable = false)
     private Employes employes;
-    @ManyToOne
+   /* @ManyToOne
     @JoinColumn(name="idUser",nullable = false)
-    private Users users;
+    private Users users;*/
 
 
 

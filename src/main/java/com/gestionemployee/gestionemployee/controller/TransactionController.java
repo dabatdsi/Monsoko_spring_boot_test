@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/transaction")
 public class TransactionController  {
     @Autowired
@@ -20,7 +21,7 @@ public class TransactionController  {
     List<Transaction> findAll(){
         return transactionService.findAll();
     };
-
+    
     @GetMapping(value = "/{idTrans}")
     Transaction findById(@PathVariable Long idTrans){
         return transactionService.findById(idTrans);

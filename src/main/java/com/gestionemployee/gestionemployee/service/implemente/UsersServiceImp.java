@@ -9,13 +9,12 @@ import com.gestionemployee.gestionemployee.repository.UsersRepository;
 import com.gestionemployee.gestionemployee.service.UsersService;
 import com.gestionemployee.gestionemployee.validator.UsersValidator;
 import lombok.extern.slf4j.Slf4j;
-//import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-//import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,9 +23,11 @@ import java.util.stream.Collectors;
 public class UsersServiceImp implements UsersService {
     @Autowired
     private UsersRepository usersRepository;
-    //@Autowired
-    //private ModelMapper mapper;
-
+    /*@Autowired
+    private AppRoleRepository appRoleRepository;*/
+    /*@Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+*/
 
     @Override
     public List<UsersDto> findAll() {
@@ -50,6 +51,10 @@ public class UsersServiceImp implements UsersService {
 
     @Override
     public UsersDto save(UsersDto usDto) {
+        //pour encrypter le password
+        //String hashPW=bCryptPasswordEncoder.encode(usDto.getPassword());
+        //usDto.setPassword(hashPW);
+
         // il faut verifier si la transaction est valide
         List<String> errors = UsersValidator.validate(usDto);
         if (!errors.isEmpty()) {
@@ -60,6 +65,24 @@ public class UsersServiceImp implements UsersService {
         Users savedUsers = UsersDto.toEntity(usDto);
         System.out.print("l'utilisateur est:" + savedUsers);
         return UsersDto.fromEntity(usersRepository.save(savedUsers));
+    }
+
+   /* @Override
+    public AppRole addNewRole(AppRole appRole) {
+        return appRoleRepository.save(appRole);
+    }
+
+    @Override
+    public void addRoleToUser(String username, String roleName) {
+        UsersDto usersDto =usersRepository.findByUsername(username);
+        AppRole role= appRoleRepository.findByRoleName(roleName);
+        usersDto.getAppRoles().add(role);
+
+    }*/
+
+    @Override
+    public UsersDto loadUserByUsername(String username) {
+       return usersRepository.findByUsername(username);
     }
 
     @Override
@@ -88,13 +111,20 @@ public class UsersServiceImp implements UsersService {
     }
 
     @Override
-    public UsersDto fechUsersByEmail(String email) {
-        return  usersRepository.findByEmail(email);
+    public UsersDto fechUsersByUsername(String username) {
+        return  usersRepository.findByUsername(username);
     }
 
-    public Users fechUsersByEmailAndPassword(String email, String password) {
-        return usersRepository.findByEmailAndPassword(email, password);
+    @Override
+    public Users fechUsersByEmailAndPassword(String tempEmail, String tempPass) {
+        return null;
     }
 
 
-  }
+   public Users fechUsersByUsernameAndPassword(String username, String password) {
+        return usersRepository.findByUsernameAndPassword(username, password);
+    }
+
+
+
+}

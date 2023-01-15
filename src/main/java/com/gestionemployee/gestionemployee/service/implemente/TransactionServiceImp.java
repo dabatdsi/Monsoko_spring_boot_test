@@ -2,7 +2,6 @@ package com.gestionemployee.gestionemployee.service.implemente;
 import com.gestionemployee.gestionemployee.dto.EmployesDto;
 import com.gestionemployee.gestionemployee.dto.UsersDto;
 import com.gestionemployee.gestionemployee.entities.Employes;
-import com.gestionemployee.gestionemployee.entities.StatusTrans;
 import com.gestionemployee.gestionemployee.entities.Transaction;
 import com.gestionemployee.gestionemployee.dto.TransactionDto;
 import com.gestionemployee.gestionemployee.entities.Users;
@@ -63,19 +62,22 @@ public class TransactionServiceImp  implements TransactionService {
             throw new InvalidEntityException("La transaction  n'est pas valide",
                     ErrorsCode.TRANSACTION_NOT_VALID,errors);
         }
-        Users users =UsersDto.toEntity(usersServiceImp.findById(transDto.getUserId()));
+        /*Users users =UsersDto.toEntity(usersServiceImp.findById(transDto.getUserId()));
         if (users.equals(null))
-            throw new EntityNotFoundException( "id user not found");
-        Employes employes = EmployesDto.toEntity(employesServiceImp.findById(transDto.getEmployeId()));
+            throw new EntityNotFoundException( "id user not found");*/
+        Employes employes = EmployesDto.toEntity(employesServiceImp.findById(transDto.getIdEmployes()));
         if (employes.equals(null))
-            throw new EntityNotFoundException(" id emplyer not found");
+            throw new EntityNotFoundException(" id employer not found");
 
        Transaction transaction =new Transaction();
        transaction.setDatePayment(ZonedDateTime.now());
-       transaction.setUsers(users);
+      // transaction.setUsers(users);
        transaction.setEmployes(employes);
-       transaction.setStatus(transDto.getStatus());
+       transaction.setStatusPay(transDto.getStatusPay());
+       transaction.setStatusType(transDto.getStatusType());
        transaction.setDescription(transDto.getDescription());
+        transaction.setMontant(transDto.getMontant());
+
 
         System.out.print("l'utilisateur est:"+transaction);
 
@@ -86,10 +88,14 @@ public class TransactionServiceImp  implements TransactionService {
     @Override
     public Transaction update(Long idTrans,TransactionDto transactionDto) {
         Transaction transaction= transactionRepository.findById(idTrans).get();
-        if (transaction.getStatus()==null) {
+        if (transaction.getStatusPay()==null) {
             throw new com.gestionemployee.gestionemployee.exception.EntityNotFoundException("id n'est pas present");
         }
-        transaction.setStatus(transactionDto.getStatus());
+        if (transaction.getStatusType()==null) {
+            throw new com.gestionemployee.gestionemployee.exception.EntityNotFoundException("id n'est pas present");
+        }
+        transaction.setStatusPay(transactionDto.getStatusPay());
+        transaction.setStatusType(transactionDto.getStatusType());
         transaction.setDescription(transactionDto.getDescription());
         return transactionRepository.save(transaction);
 

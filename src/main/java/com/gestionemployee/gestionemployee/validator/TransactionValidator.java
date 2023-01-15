@@ -22,8 +22,12 @@ public class TransactionValidator {
 
         }
 
-        if (!StringUtils.hasLength(String.valueOf(transactionDto.getStatus()))) {
-            errors.add("veillez energiser status de la transaction");
+        if (!StringUtils.hasLength(String.valueOf(transactionDto.getStatusPay()))) {
+            errors.add("veillez energiser  le payBy de la transaction");
+
+        }
+        if (!StringUtils.hasLength(String.valueOf(transactionDto.getStatusType()))) {
+            errors.add("veillez energiser le type de la transaction");
 
         }
         if (!StringUtils.hasLength(String.valueOf(transactionDto.getDescription()))) {

@@ -29,9 +29,9 @@ public class Employes {
     private String adress;
     @Column(nullable = false)
     private String email;
-    @Column(unique = true,nullable = false)
+    @Column(unique = true,nullable = false,length = 12)
     private Long cni;
-    @Column(unique = true,nullable = false)
+    @Column(unique = true,nullable = false,length =9 )
     private int phoneNumber;
     @Column(nullable = false)
     private String postOccupe;
